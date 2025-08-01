@@ -3,10 +3,8 @@ import booksListReducer from "./books/reducer";
 
 const store = configureStore({
   reducer: {
-    reducer: {
-      books: booksListReducer,
-      // filter: filterReducer,
-    },
+    books: booksListReducer,
+    // filter: filterReducer,
   },
 });
 

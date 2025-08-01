@@ -1,8 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
-export const add_book = (newBook) => {
+export const addBook = (newBook) => {
   return {
     type: actionTypes.ADD_BOOK,
     payload: newBook,
+    
   };
 };

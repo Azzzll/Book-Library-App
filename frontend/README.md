@@ -1,4 +1,4 @@
-# Book Library App
+# Book Library
 
 ## Available Scripts
 

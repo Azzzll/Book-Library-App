@@ -1,15 +1,34 @@
-import { createSlice } from "@redux/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  title: "",
+  title: '',
+  author: '',
 };
 
 const filterSlice = createSlice({
-  name: filter,
+  name: 'filter',
   initialState: initialState,
   reducers: {
     setTitleFilter: (state, action) => {
-      return { ...state, title: action.payload };
+      // You can mutate state thanks to Immer library
+      state.title = action.payload;
+
+      // You can return state as usally
+      // return { ...state, title: action.payload };
+    },
+    setAuthorFilter: (state, action) => {
+      state.author = action.payload;
+    },
+    resetFilters: (state) => {
+      return initialState;
     },
   },
 });
+
+export const { setTitleFilter, setAuthorFilter, resetFilters } =
+  filterSlice.actions;
+
+export const selectTitleFilter = (state) => state.filter.title;
+export const selectAuthorFilter = (state) => state.filter.author;
+
+export default filterSlice.reducer;

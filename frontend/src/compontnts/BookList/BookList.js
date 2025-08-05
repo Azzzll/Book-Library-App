@@ -5,13 +5,17 @@ import {
   selectTitleFilter,
   selectAuthorFilter,
   resetFilters,
+  selectOnlyFavoriteFilter,
 } from '../../redux/slices/filterSlice';
 import './BookList.css';
 
 const BookList = () => {
+  // Подписка на изменение состояния
   const books = useSelector((state) => state.books);
   const titleFilter = useSelector(selectTitleFilter);
   const authorFilter = useSelector(selectAuthorFilter);
+  const OnlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);
+
   const dispatch = useDispatch();
 
   const filteredBooks = books.filter((book) => {
@@ -21,8 +25,9 @@ const BookList = () => {
     const matchesAuthor = book.author
       .toLowerCase()
       .includes(authorFilter.toLowerCase());
+    const matchesFavorite = OnlyFavoriteFilter ? book.isFavorite : true;
 
-    return matchesTitle && matchesAuthor;
+    return matchesTitle && matchesAuthor && matchesFavorite;
   });
 
   const handleDeleteBook = (id) => {

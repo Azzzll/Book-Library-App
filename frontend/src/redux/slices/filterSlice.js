@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   title: '',
   author: '',
+  onlyFavorite: false,
 };
 
 const filterSlice = createSlice({
@@ -12,23 +13,30 @@ const filterSlice = createSlice({
     setTitleFilter: (state, action) => {
       // You can mutate state thanks to Immer library
       state.title = action.payload;
-
       // You can return state as usally
       // return { ...state, title: action.payload };
     },
     setAuthorFilter: (state, action) => {
       state.author = action.payload;
     },
-    resetFilters: (state) => {
+    setOnlyFavoriteFilter: (state) => {
+      state.onlyFavorite = !state.onlyFavorite;
+    },
+    resetFilters: () => {
       return initialState;
     },
   },
 });
 
-export const { setTitleFilter, setAuthorFilter, resetFilters } =
-  filterSlice.actions;
+export const {
+  setTitleFilter,
+  setAuthorFilter,
+  setOnlyFavoriteFilter,
+  resetFilters,
+} = filterSlice.actions;
 
 export const selectTitleFilter = (state) => state.filter.title;
 export const selectAuthorFilter = (state) => state.filter.author;
+export const selectOnlyFavoriteFilter = (state) => state.filter.onlyFavorite;
 
 export default filterSlice.reducer;

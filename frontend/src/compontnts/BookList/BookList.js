@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators';
+import { deleteBook, toggleFavorite } from '../../redux/slices/booksSlice';
 import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs';
 import {
   selectTitleFilter,

@@ -1,8 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import createBookWithID from '../../utils/createBookWithID';
 
 const initialState = [];
+
+export const FetchBook = createAsyncThunk('books/fetchBook', async () => {
+  const res = await axios.get('http://localhost:4000/random-book');
+  console.log(res.data);
+  return res.data;
+});
 
 const booksSlice = createSlice({
   name: 'books',

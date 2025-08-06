@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import createBookWithID from '../../utils/createBookWithID';
-import { addBook, thunkFunction } from '../../redux/slices/booksSlice';
+import { addBook, FetchBook } from '../../redux/slices/booksSlice';
 import booksData from '../../data/books.json';
 import './BookForm.css';
 
@@ -29,7 +29,7 @@ const BookForm = () => {
   };
 
   const handleAddRandomViaAPI = async () => {
-    dispatch(thunkFunction);
+    dispatch(FetchBook());
   };
 
   return (

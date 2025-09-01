@@ -4,11 +4,17 @@ import createBookWithID from '../../utils/createBookWithID';
 
 const initialState = [];
 
-export const FetchBook = createAsyncThunk('books/fetchBook', async () => {
-  const res = await axios.get('http://localhost:4000/random-book');
-  console.log(res.data);
-  return res.data;
-});
+export const FetchBook = createAsyncThunk(
+  'books/fetchBook',
+  async (url, thunkAPI) => {
+    try {
+      const res = await axios.get(url);
+      return res.data;
+    } catch (error) {
+      thunkAPI.dispatch(setError(error.message));
+    }
+  }
+);
 
 const booksSlice = createSlice({
   name: 'books',
@@ -38,7 +44,6 @@ const booksSlice = createSlice({
         state.push(createBookWithID(action.payload, 'API'));
       }
     });
-    
   },
 });
 

@@ -6,11 +6,23 @@ const app = express();
 
 app.use(cors());
 
-// Исправлено: обработчик внутри app.get()
-app.get('/random-book', (req, res) => {
+function getRandomBook() {
   const randomIndex = Math.floor(Math.random() * booksData.length);
   const randomBook = booksData[randomIndex];
+  return randomBook;
+}
+
+// Исправлено: обработчик внутри app.get()
+app.get('/random-book', (req, res) => {
+  getRandomBook();
   res.json(randomBook);
+});
+
+app.get('/random-book-delayed', (req, res) => {
+  getRandomBook();
+  setTimeout(() => {
+    res.json(randomBook);
+  }, 2000);
 });
 
 const port = process.env.PORT || 4000;

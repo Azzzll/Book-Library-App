@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import createBookWithID from '../../utils/createBookWithID';
+import { setError } from './errorSlice';
 
 const initialState = [];
 
@@ -12,6 +13,7 @@ export const FetchBook = createAsyncThunk(
       return res.data;
     } catch (error) {
       thunkAPI.dispatch(setError(error.message));
+      throw error;
     }
   }
 );
@@ -38,6 +40,15 @@ const booksSlice = createSlice({
       });
     },
   },
+  
+  // extraReducers:{
+  //   [FetchBook.fulfilled]:  (state, action) => {
+  //     if (action.payload.title && action.payload.author) {
+  //       state.push(createBookWithID(action.payload, 'API'));
+  //     }
+  //   }
+  // }
+
   extraReducers: (builder) => {
     builder.addCase(FetchBook.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {

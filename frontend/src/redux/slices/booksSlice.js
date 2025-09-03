@@ -30,13 +30,14 @@ const booksSlice = createSlice({
     },
     deleteBook: (state, action) => {
       const index = state.books.findIndex((book) => book.id === action.payload);
-      if (index !== 1) {
-        state.splice(index, 1);
+      if (index !== -1) {
+        // Исправлено: index !== -1 вместо 1
+        state.books.splice(index, 1); // Исправлено: state.books.splice вместо state.splice
       }
-      //   return state.filter((book) => book.id !== action.payload);
     },
     toggleFavorite: (state, action) => {
-      state.forEach((book) => {
+      state.books.forEach((book) => {
+        // Исправлено: state.books.forEach вместо state.forEach
         if (book.id === action.payload) {
           book.isFavorite = !book.isFavorite;
         }
@@ -44,32 +45,18 @@ const booksSlice = createSlice({
     },
   },
 
-  // extraReducers: {
-  //   [FetchBook.pending]: (state) => {
-  //     state.isLoadingViaAPI = true;
-  //   },
-  //   [FetchBook.fulfilled]: (state, action) => {
-  //     state.isLoadingViaAPI = false;
-  //     if (action.payload.title && action.payload.author) {
-  //       state.push(createBookWithID(action.payload, 'API'));
-  //     }
-  //   },
-  //   [FetchBook.rejected]: (state) => {
-  //     state.isLoadingViaAPI = false;
-  //   },
-  // },
-
   extraReducers: (builder) => {
     builder.addCase(FetchBook.pending, (state) => {
       state.isLoadingViaAPI = true;
     });
     builder.addCase(FetchBook.fulfilled, (state, action) => {
+      state.isLoadingViaAPI = false; // Исправлено: убрано state.books.isLoadingViaAPI
       if (action.payload.title && action.payload.author) {
-        state.push(createBookWithID(action.payload, 'API'));
+        state.books.push(createBookWithID(action.payload, 'API'));
       }
     });
-    builder.addCase(FetchBook.rejected, (state, action) => {
-      state.isLoadingViaAPI = false;
+    builder.addCase(FetchBook.rejected, (state) => {
+      state.isLoadingViaAPI = false; // Исправлено: убрано .book
     });
   },
 });

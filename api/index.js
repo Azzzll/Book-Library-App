@@ -15,13 +15,13 @@ function getRandomBook() {
 // Исправлено: обработчик внутри app.get()
 app.get('/random-book', (req, res) => {
   getRandomBook();
-  res.json(randomBook);
+  res.json(getRandomBook());
 });
 
 app.get('/random-book-delayed', (req, res) => {
   getRandomBook();
   setTimeout(() => {
-    res.json(randomBook);
+    res.json(getRandomBook());
   }, 2000);
 });
 

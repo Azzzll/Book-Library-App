@@ -11,7 +11,7 @@ import './BookList.css';
 
 const BookList = () => {
   // Подписка на изменение состояния
-  const books = useSelector((state) => state.books);
+  const books = useSelector((state) => state.books.books);
   const titleFilter = useSelector(selectTitleFilter);
   const authorFilter = useSelector(selectAuthorFilter);
   const OnlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);

@@ -867,6 +867,7 @@
     "eject": "react-scripts eject",
     "vercel-build": "npm install && npm run build"
   },
+  "homepage": ".",
   "keywords": [],
   "author": "",
   "license": "ISC"

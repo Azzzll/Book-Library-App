@@ -8,24 +8,18 @@ app.use(cors());
 
 function getRandomBook() {
   const randomIndex = Math.floor(Math.random() * booksData.length);
-  const randomBook = booksData[randomIndex];
-  return randomBook;
+  return booksData[randomIndex];
 }
 
-// Исправлено: обработчик внутри app.get()
-app.get('/random-book', (req, res) => {
-  getRandomBook();
+app.get('/api/random-book', (req, res) => {
   res.json(getRandomBook());
 });
 
-app.get('/random-book-delayed', (req, res) => {
-  getRandomBook();
+app.get('/api/random-book-delayed', (req, res) => {
   setTimeout(() => {
     res.json(getRandomBook());
   }, 2000);
 });
 
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Экспортируем для Vercel Serverless
+module.exports = app;

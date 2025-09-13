@@ -37,7 +37,8 @@ const BookForm = () => {
   };
 
   const handleAddRandomViaAPI = () => {
-    dispatch(FetchBook('http://localhost:4000/random-book-delayed'));
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+    dispatch(FetchBook(`${API_URL}/api/random-book`));
   };
 
   return (
@@ -54,7 +55,7 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-          <label htmlFor="title">Author:</label>
+          <label htmlFor="author">Author:</label>
           <input
             type="text"
             id="author"

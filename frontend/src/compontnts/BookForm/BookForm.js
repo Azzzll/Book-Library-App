@@ -37,8 +37,11 @@ const BookForm = () => {
   };
 
   const handleAddRandomViaAPI = () => {
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-    dispatch(FetchBook(`${API_URL}/api/random-book`));
+    dispatch(
+      FetchBook(
+        'https://book-library-app-iota.vercel.app/api/random-book-delayed'
+      )
+    );
   };
 
   return (

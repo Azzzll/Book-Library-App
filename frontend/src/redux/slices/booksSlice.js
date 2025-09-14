@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import createBookWithID from '../../utils/createBookWithID';
-import { setError } from './errorSlice';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import createBookWithID from "../../utils/createBookWithID";
+import { setError } from "./errorSlice";
 
 const initialState = {
   books: [],
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const FetchBook = createAsyncThunk(
-  'books/fetchBook',
+  "books/fetchBook",
   async (url, thunkAPI) => {
     try {
       const res = await axios.get(url);
@@ -22,7 +22,7 @@ export const FetchBook = createAsyncThunk(
 );
 
 const booksSlice = createSlice({
-  name: 'books',
+  name: "books",
   initialState: initialState,
   reducers: {
     addBook: (state, action) => {
@@ -52,7 +52,7 @@ const booksSlice = createSlice({
     builder.addCase(FetchBook.fulfilled, (state, action) => {
       state.isLoadingViaAPI = false; // Исправлено: убрано state.books.isLoadingViaAPI
       if (action.payload.title && action.payload.author) {
-        state.books.push(createBookWithID(action.payload, 'API'));
+        state.books.push(createBookWithID(action.payload, "API"));
       }
     });
     builder.addCase(FetchBook.rejected, (state) => {

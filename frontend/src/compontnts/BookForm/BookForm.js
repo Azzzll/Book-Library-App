@@ -1,47 +1,43 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { FaSpinner } from 'react-icons/fa';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FaSpinner } from "react-icons/fa";
 import {
   addBook,
   FetchBook,
   selectIsLoadingViaAPI,
-} from '../../redux/slices/booksSlice';
-import { setError } from '../../redux/slices/errorSlice';
-import createBookWithID from '../../utils/createBookWithID';
-import booksData from '../../data/books.json';
-import './BookForm.css';
+} from "../../redux/slices/booksSlice";
+import { setError } from "../../redux/slices/errorSlice";
+import createBookWithID from "../../utils/createBookWithID";
+import booksData from "../../data/books.json";
+import "./BookForm.css";
 
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const isLoadingViaAPI = useSelector(selectIsLoadingViaAPI);
   const dispatch = useDispatch();
 
   const handleAddRandomBook = () => {
     const randomIndex = Math.floor(Math.random() * booksData.length);
     const randomBook = booksData[randomIndex];
-    const randomBookWithID = createBookWithID(randomBook, 'random');
+    const randomBookWithID = createBookWithID(randomBook, "random");
     dispatch(addBook(randomBookWithID));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title && author) {
-      const book = createBookWithID({ title: title, author: author }, 'manual');
+      const book = createBookWithID({ title: title, author: author }, "manual");
       dispatch(addBook(book));
-      setTitle('');
-      setAuthor('');
+      setTitle("");
+      setAuthor("");
     } else {
-      dispatch(setError('You must fill title and author!'));
+      dispatch(setError("You must fill title and author!"));
     }
   };
 
   const handleAddRandomViaAPI = () => {
-    dispatch(
-      FetchBook(
-        'https://book-library-app-iota.vercel.app/api/random-book-delayed'
-      )
-    );
+    dispatch(FetchBook("/api/random-book-delayed"));
   };
 
   return (
@@ -82,7 +78,7 @@ const BookForm = () => {
               <FaSpinner className="spinner" />
             </>
           ) : (
-            'Add Random via API'
+            "Add Random via API"
           )}
         </button>
       </form>
